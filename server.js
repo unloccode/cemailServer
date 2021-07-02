@@ -38,7 +38,7 @@ db.sequelize.sync({force:true}).then(()=>{
             }
         ]
         for(let i=0; i<users.length; i++){
-            User.create(Users[i]);
+            User.create(users[i]);
         }
     })
 });

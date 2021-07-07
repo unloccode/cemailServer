@@ -63,3 +63,37 @@ exports.allUsers = (req, res) => {
         });
     }
 }
+//confirm user
+exports.confirmEmail = (req, res) => {
+    const {id} = req.params;
+    //console.log(id);
+    //decode id Base64
+    let decodedId = Base64.decode(id);
+    let toStringDecodedId = parseInt(decodedId);
+    //console.log(toStringDecodedId);
+    //find user by Id
+    User.findByPk(toStringDecodedId)
+    .then(user=>{
+        if(!user){
+            console.log("User Not Found!");
+        }else{
+            //update new change to db
+            let updatedObject = {
+                email: req.body.email,
+                confirmed: true
+            }                        
+            User.update(updatedObject,
+                {
+                    returning: true,
+                    where: {id: toStringDecodedId},
+                    attributes: [
+                        'id',
+                        'email',
+                        'confirmed'
+                    ]
+                })
+            .then(()=>res.json({msg: msgs.confirmed}))
+            .catch(error=>console.log(error));
+        }
+    }).catch(error=>console.log(error));
+}

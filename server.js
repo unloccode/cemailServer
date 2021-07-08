@@ -33,7 +33,7 @@ db.sequelize.sync({force:true}).then(()=>{
     User.sync().then(()=>{
         const users = [
             {
-                email: 'georgelimour@gmail.com',
+                email: 'george@mail.com',
                 confirmed: false
             }
         ]

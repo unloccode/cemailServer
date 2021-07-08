@@ -5,6 +5,7 @@ const credentials = {
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
+    //requireTLS: true,
     auth: {
         //user data
         user: 'unloccode@gmail.com',
@@ -24,4 +25,5 @@ module.exports = async(to, content) => {
     const email = Object.assign({}, content, contacts);
     //send email
     await transporter.sendMail(email);
+    console.log("Mail Sent Successfully!");
 }
